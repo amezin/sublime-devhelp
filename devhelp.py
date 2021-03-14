@@ -46,20 +46,24 @@ def get_word(view):
     return view.substr(region).strip()
 
 
-def scope_match(view):
-    region = get_word_region(view)
+class DevhelpCommandCommon:
+    def is_enabled(self):
+        region = get_word_region(self.view)
 
-    if region is None:
+        if region is None:
+            return False
+
+        for selector in settings.get('devhelp_selectors'):
+            if self.view.match_selector(region.a, selector):
+                return True
+
         return False
 
-    for selector in settings.get('devhelp_selectors'):
-        if view.match_selector(region.a, selector):
-            return True
-
-    return False
+    def is_visible(self):
+        return self.is_enabled()
 
 
-class DevhelpSearchCommand(sublime_plugin.TextCommand):
+class DevhelpSearchCommand(DevhelpCommandCommon, sublime_plugin.TextCommand):
     def input(self, args):
         if not args.get('text'):
             return SimpleTextInputHandler('text', placeholder="query string", initial_text=get_word(self.view))
@@ -67,11 +71,8 @@ class DevhelpSearchCommand(sublime_plugin.TextCommand):
     def run(self, edit, text):
         open_devhelp(text)
 
-    def is_enabled(self):
-        return scope_match(self.view)
 
-
-class DevhelpSearchSelectionCommand(sublime_plugin.TextCommand):
+class DevhelpSearchSelectionCommand(DevhelpCommandCommon, sublime_plugin.TextCommand):
     def run(self, edit):
         text = get_word(self.view)
 
@@ -80,9 +81,6 @@ class DevhelpSearchSelectionCommand(sublime_plugin.TextCommand):
             return
 
         open_devhelp(text)
-
-    def is_enabled(self):
-        return scope_match(self.view)
 
 
 class SimpleTextInputHandler(sublime_plugin.TextInputHandler):
