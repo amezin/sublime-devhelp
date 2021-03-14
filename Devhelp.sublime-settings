@@ -1,0 +1,4 @@
+{
+    // Devhelp executable path. Subject to $PATH resolution.
+    "devhelp_command": "devhelp"
+}
