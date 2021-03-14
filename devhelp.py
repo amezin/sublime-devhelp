@@ -29,7 +29,7 @@ def open_devhelp(query):
         raise
 
 
-class DevhelpCommandCommon:
+class DevhelpSearchCommand(sublime_plugin.TextCommand):
     def get_region(self, event=None):
         if event is None:
             return next(iter(self.view.sel()), None)
@@ -69,38 +69,39 @@ class DevhelpCommandCommon:
     def want_event(self):
         return True
 
-
-class DevhelpSearchCommand(DevhelpCommandCommon, sublime_plugin.TextCommand):
     def input(self, args):
-        if not args.get('text'):
-            return SimpleTextInputHandler('text', placeholder="query string", initial_text=self.get_word())
+        if args.get('text'):
+            return None
 
-    def run(self, edit, text):
+        return SearchTextInputHandler(self.get_word(args.get('event')))
+
+    def run(self, edit, text, event=None):
         open_devhelp(text)
 
 
-class DevhelpSearchSelectionCommand(DevhelpCommandCommon, sublime_plugin.TextCommand):
+class DevhelpSearchSelectedCommand(DevhelpSearchCommand):
+    def input(self, args):
+        return None
+
     def run(self, edit, event=None):
         text = self.get_word(event)
 
         if not text:
-            sublime.status_message("Devhelp: No word was selected.")
+            sublime.status_message("Devhelp: no word selected")
             return
 
-        open_devhelp(text)
+        super().run(edit, text, event)
 
 
-class SimpleTextInputHandler(sublime_plugin.TextInputHandler):
-    def __init__(self, param_name, *, placeholder='', initial_text=''):
-        self.param_name = param_name
-        self._placeholder = placeholder
+class SearchTextInputHandler(sublime_plugin.TextInputHandler):
+    def __init__(self, initial_text):
         self._initial_text = initial_text
 
     def name(self):
-        return self.param_name
-
-    def placeholder(self):
-        return self._placeholder
+        return 'text'
 
     def initial_text(self):
         return self._initial_text
+
+    def validate(self, text):
+        return text != ''

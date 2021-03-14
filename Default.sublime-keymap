@@ -1,7 +1,7 @@
 [
     {
         "keys": ["f1"],
-        "command": "devhelp_search_selection"
+        "command": "devhelp_search_selected"
     },
     {
         "keys": ["shift+f1"],
