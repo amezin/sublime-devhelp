@@ -53,7 +53,11 @@ class DevhelpCommandCommon:
         if region is None:
             return False
 
-        for selector in settings.get('devhelp_selectors'):
+        selectors = settings.get('devhelp_selectors')
+        if not selectors:
+            return True
+
+        for selector in selectors:
             if self.view.match_selector(region.a, selector):
                 return True
 
