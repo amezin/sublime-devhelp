@@ -29,33 +29,33 @@ def open_devhelp(query):
         raise
 
 
-def get_word_region(view):
-    for region in view.sel():
-        if region.empty():
-            return view.word(region)
-
-        return region
-
-
-def get_word(view):
-    region = get_word_region(view)
-
-    if region is None:
-        return ''
-
-    return view.substr(region).strip()
-
-
 class DevhelpCommandCommon:
-    def is_enabled(self):
-        region = get_word_region(self.view)
+    def get_region(self, event=None):
+        if event is None:
+            return next(iter(self.view.sel()), None)
+
+        point = self.view.window_to_text((event["x"], event["y"]))
+        return sublime.Region(point, point)
+
+    def get_word(self, event=None):
+        region = self.get_region(event)
 
         if region is None:
-            return False
+            return ''
 
+        if region.empty():
+            region = self.view.word(region)
+
+        return self.view.substr(region).strip()
+
+    def is_enabled(self, event=None):
         selectors = settings.get('devhelp_selectors')
         if not selectors:
             return True
+
+        region = self.get_region(event)
+        if region is None:
+            return False
 
         for selector in selectors:
             if self.view.match_selector(region.a, selector):
@@ -63,22 +63,25 @@ class DevhelpCommandCommon:
 
         return False
 
-    def is_visible(self):
-        return self.is_enabled()
+    def is_visible(self, event=None):
+        return self.is_enabled(event)
+
+    def want_event(self):
+        return True
 
 
 class DevhelpSearchCommand(DevhelpCommandCommon, sublime_plugin.TextCommand):
     def input(self, args):
         if not args.get('text'):
-            return SimpleTextInputHandler('text', placeholder="query string", initial_text=get_word(self.view))
+            return SimpleTextInputHandler('text', placeholder="query string", initial_text=self.get_word())
 
     def run(self, edit, text):
         open_devhelp(text)
 
 
 class DevhelpSearchSelectionCommand(DevhelpCommandCommon, sublime_plugin.TextCommand):
-    def run(self, edit):
-        text = get_word(self.view)
+    def run(self, edit, event=None):
+        text = self.get_word(event)
 
         if not text:
             sublime.status_message("Devhelp: No word was selected.")
