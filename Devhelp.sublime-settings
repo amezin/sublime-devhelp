@@ -1,4 +1,9 @@
 {
     // Devhelp executable path. Subject to $PATH resolution.
-    "devhelp_command": "devhelp"
+    "devhelp_command": "devhelp",
+
+    "devhelp_selectors": [
+        "source.c",
+        "source.c++"
+    ]
 }

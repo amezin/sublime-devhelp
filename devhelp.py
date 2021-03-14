@@ -29,14 +29,34 @@ def open_devhelp(query):
         raise
 
 
-def get_word(view):
+def get_word_region(view):
     for region in view.sel():
         if region.empty():
-            region = view.word(region)
+            return view.word(region)
 
-        return view.substr(region).strip()
+        return region
 
-    return ''
+
+def get_word(view):
+    region = get_word_region(view)
+
+    if region is None:
+        return ''
+
+    return view.substr(region).strip()
+
+
+def scope_match(view):
+    region = get_word_region(view)
+
+    if region is None:
+        return False
+
+    for selector in settings.get('devhelp_selectors'):
+        if view.match_selector(region.a, selector):
+            return True
+
+    return False
 
 
 class DevhelpSearchCommand(sublime_plugin.TextCommand):
@@ -46,6 +66,9 @@ class DevhelpSearchCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, text):
         open_devhelp(text)
+
+    def is_enabled(self):
+        return scope_match(self.view)
 
 
 class DevhelpSearchSelectionCommand(sublime_plugin.TextCommand):
@@ -57,6 +80,9 @@ class DevhelpSearchSelectionCommand(sublime_plugin.TextCommand):
             return
 
         open_devhelp(text)
+
+    def is_enabled(self):
+        return scope_match(self.view)
 
 
 class SimpleTextInputHandler(sublime_plugin.TextInputHandler):
