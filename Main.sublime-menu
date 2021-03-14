@@ -10,16 +10,6 @@
                         "caption": "Devhelp",
                         "children": [
                             {
-                                "caption": "README",
-                                "command": "open_file",
-                                "args": {
-                                    "file": "${packages}/Devhelp/README.md"
-                                }
-                            },
-                            {
-                                "caption": "-"
-                            },
-                            {
                                 "caption": "Settings",
                                 "command": "edit_settings",
                                 "args": {

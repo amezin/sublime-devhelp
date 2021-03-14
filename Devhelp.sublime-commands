@@ -16,13 +16,6 @@
         }
     },
     {
-        "caption": "Devhelp: Open Readme",
-        "command": "open_file",
-        "args": {
-            "file": "${packages}/Devhelp/README.md"
-        }
-    },
-    {
         "caption": "Devhelp: Search Selected",
         "command": "devhelp_search_selected"
     },
