@@ -18,7 +18,7 @@ def open_devhelp(query):
 
     if not cmd_path:
         sublime.error_message("Could not find your devhelp executable. ({})"
-                              '\n\nPlease edit Devhelp.sublime-settings'
+                              "\n\nPlease edit Devhelp.sublime-settings"
                               .format(cmd_setting))
         return
 
@@ -34,7 +34,7 @@ class DevhelpSearchCommand(sublime_plugin.TextCommand):
         if event is None:
             return next(iter(self.view.sel()), None)
 
-        point = self.view.window_to_text((event["x"], event["y"]))
+        point = self.view.window_to_text((event['x'], event['y']))
         return sublime.Region(point, point)
 
     def get_word(self, event=None):

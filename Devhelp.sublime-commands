@@ -1,28 +1,33 @@
 [
-  { "caption": "Preferences: Devhelp",
-    "command": "edit_settings",
-    "args": {
-      "base_file": "${packages}/Devhelp/Devhelp.sublime-settings",
-      "default": "{\n\t$0\n}\n"
+    {
+        "caption": "Preferences: Devhelp",
+        "command": "edit_settings",
+        "args": {
+            "base_file": "${packages}/Devhelp/Devhelp.sublime-settings",
+            "default": "{\n\t$0\n}\n"
+        }
+    },
+    {
+        "caption": "Preferences: Devhelp Key Bindings",
+        "command": "edit_settings",
+        "args": {
+            "base_file": "${packages}/Devhelp/Default.sublime-keymap",
+            "default": "[\n\t$0\n]\n"
+        }
+    },
+    {
+        "caption": "Devhelp: Open Readme",
+        "command": "open_file",
+        "args": {
+            "file": "${packages}/Devhelp/README.md"
+        }
+    },
+    {
+        "caption": "Devhelp: Search Selected",
+        "command": "devhelp_search_selected"
+    },
+    {
+        "caption": "Devhelp: Search",
+        "command": "devhelp_search"
     }
-  },
-  { "caption": "Preferences: Devhelp Key Bindings",
-    "command": "edit_settings",
-    "args": {
-      "base_file": "${packages}/Devhelp/Default.sublime-keymap",
-      "default": "[\n\t$0\n]\n"
-    }
-  },
-  { "caption": "Devhelp: Open Readme",
-    "command": "open_file",
-    "args": {
-      "file": "${packages}/Devhelp/README.md"
-    }
-  },
-  { "caption": "Devhelp: Search Selected",
-    "command": "devhelp_search_selected"
-  },
-  { "caption": "Devhelp: Search",
-    "command": "devhelp_search"
-  },
 ]

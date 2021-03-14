@@ -1,4 +1,9 @@
 [
-    { "caption": "-"},
-    { "command": "devhelp_search_selected", "caption": "Devhelp" }
+    {
+        "caption": "-"
+    },
+    {
+        "command": "devhelp_search_selected",
+        "caption": "Devhelp"
+    }
 ]
