@@ -57,11 +57,10 @@ class DevhelpSearchCommand(sublime_plugin.TextCommand):
         if region is None:
             return False
 
-        for selector in selectors:
-            if self.view.match_selector(region.a, selector):
-                return True
+        if isinstance(selectors, str):
+            return self.view.match_selector(region.a, selectors)
 
-        return False
+        return any(self.view.match_selector(region.a, s) for s in selectors)
 
     def is_visible(self, event=None):
         return self.is_enabled(event)
