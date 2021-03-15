@@ -1,6 +1,7 @@
 # Devhelp integration for Sublime Text
 
-[Devhelp][] integration for Sublime Text. Based on [Zeal plugin][].
+[Devhelp][] integration for Sublime Text. Initially based on [Zeal plugin][].
+
 [Devhelp][] is a GNOME app for browsing and searching API documentation.
 
 [Devhelp]: https://wiki.gnome.org/Apps/Devhelp
