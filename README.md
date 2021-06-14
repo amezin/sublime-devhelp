@@ -9,9 +9,13 @@
 
 ## Usage
 
-- <kbd>F1</kbd> - Search for the currently selected word.
+"Devhelp" item will be available in the context menu (searches for the word
+clicked).
 
-- <kbd>Shift</kbd>&nbsp;<kbd>F1</kbd> - Custom search
+To enable keyboard shortcuts, select `Preferences` -> `Package Settings` ->
+`Devhelp` -> `Key Bindings`. Default configuration contains key bindings for
+<kbd>F1</kbd> and <kbd>Ctrl</kbd>+<kbd>F1</kbd>, but they are commented out.
+You may copy them to your configuration and uncomment them.
 
 ## Installation
 

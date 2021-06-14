@@ -1,10 +1,10 @@
 [
-    {
+    /*{
         "keys": ["f1"],
         "command": "devhelp_search_selected"
     },
     {
         "keys": ["shift+f1"],
         "command": "devhelp_search"
-    }
+    }*/
 ]
