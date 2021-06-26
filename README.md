@@ -19,7 +19,15 @@ You may copy them to your configuration and uncomment them.
 
 ## Installation
 
-Not on Package Control yet.
+### From Package Control
+
+The easiest way to install the package is to use
+[Package Control](https://packagecontrol.io/).
+Choose *Package Control: Install Package* in the Command Palette
+(<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>)
+and type "Devhelp".
+
+https://packagecontrol.io/packages/Devhelp
 
 ### Using Git
 
